@@ -25,5 +25,5 @@ The serial port device needs to be mapped into the container. First find the dev
 
 ```
 SERIAL=/dev/ttyUSB0
-sudo docker run --device="${SERIAL}:${SERIAL}:rwm" "${LOGNAME}/roon-extension-meridian"
+sudo docker run --detach --device="${SERIAL}:${SERIAL}:rwm" --name=meridian --network=host --restart=unless-stopped "${LOGNAME}/roon-extension-meridian"
 ```

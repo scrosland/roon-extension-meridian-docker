@@ -1,19 +1,12 @@
-FROM node:8-alpine
-
+FROM scrosland/roon-extension-base
 WORKDIR /app
-
+ENV EXTENSION roon-extension-meridian
 RUN apk add --no-cache \
-    g++ \
-    gcc \
-    git \
-    linux-headers \
-    make \
-    python \
     udev \
-  && npm -g config set user root \
-  && npm install node-gyp --global \
-  && git clone https://github.com/RoonLabs/roon-extension-meridian \
-  && cd roon-extension-meridian \
+  && cd $DATA \
+  && git clone https://github.com/RoonLabs/$EXTENSION \
+  && cd $EXTENSION \
   && npm install --unsafe-perm --build-from-source
+VOLUME /app/extensions
 
-CMD ["node", "roon-extension-meridian/app.js"]
+CMD ["/app/update-and-start.sh"]
