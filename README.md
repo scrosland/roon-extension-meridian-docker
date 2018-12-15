@@ -1,9 +1,14 @@
 # roon-extension-meridian-docker
 Docker image for https://github.com/RoonLabs/roon-extension-meridian.
 
-## WARNING
+## Using pre-built images from Docker hub
 
-**This Dockerfile will build an image, but that image is not yet tested. Use at your own risk.**
+There is a pre-built image on [Docker hub][] for Raspberry Pi 3 devices, and possibly other ARM systems. To use this:
+```
+$ sudo docker pull scrosland/roon-extension-meridian
+$ sudo docker run --detach --device=/dev/ttyUSB0 --name=meridian --network=host --restart=unless-stopped scrosland/roon-extension-meridian
+```
+[Docker hub]: https://hub.docker.com/r/scrosland/roon-extension-powermate
 
 ## Build
 
@@ -12,7 +17,7 @@ If you wish to build an image from the Dockerfile, use something like:
 ```
 git clone https://github.com/scrosland/roon-extension-meridian-docker
 cd roon-extension-meridian-docker
-sudo docker build -t "${LOGNAME}/roon-extension-meridian" .
+sudo docker build -t roon-extension-meridian .
 ```
 
 Expect warnings about deprecated APIs from the compilation of the serialport native code, see [node/serialport #1566][serialport-1566] for more details.
@@ -24,6 +29,5 @@ Expect warnings about deprecated APIs from the compilation of the serialport nat
 The serial port device needs to be mapped into the container. First find the device name from `ls /dev/serial` or `ls /dev/ttyUSB*`, then run with:
 
 ```
-SERIAL=/dev/ttyUSB0
-sudo docker run --detach --device="${SERIAL}:${SERIAL}:rwm" --name=meridian --network=host --restart=unless-stopped "${LOGNAME}/roon-extension-meridian"
+sudo docker run --detach --device=/dev/ttyUSB0 --name=meridian --network=host --restart=unless-stopped roon-extension-meridian
 ```
