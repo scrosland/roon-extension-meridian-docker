@@ -1,3 +1,11 @@
+# Deprecated
+
+This repo and Docker image is now deprecated. I recommend using the [Roon Extension Manager][] instead which has better support and more frequent updates.
+
+[Roon Extension Manager]: https://github.com/TheAppgineer/roon-extension-manager
+
+<hr>
+
 # roon-extension-meridian-docker
 Docker image for https://github.com/RoonLabs/roon-extension-meridian.
 
